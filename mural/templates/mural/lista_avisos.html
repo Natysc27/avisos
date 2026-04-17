@@ -5,19 +5,19 @@
     
     <div style="margin-bottom: 2rem;">
         <strong>Filtrar:</strong>
-        <a href="?">Todos</a> | 
-        <a href="?categoria=Evento">Eventos</a> | 
-        <a href="?categoria=Servico">Serviços</a>
-    </div>
+        <a href="{% url 'home' %}">Todos</a> | 
 
-    {% for aviso in avisos %}
+        {% for cat in categorias %}
+            <a href="?categoria={{ cat.id }}">{{ cat.none }}</a> 
+        {% endfor %}
+        <div>
+        {% for aviso in avisos %}
         <div class="card">
-            <span class="tag">{{ aviso.get_categoria_display }}</span>
+            <span class="tag">{{ aviso.get_categoria_nome }}</span>
+
             <h2>{{ aviso.titulo }}</h2>
             <p><small>Publicado em: {{ aviso.data_criacao|date:"d/m/Y" }}</small></p>
             <a href="{% url 'detalhe_aviso' aviso.id %}">Ver detalhes →</a>
         </div>
-    {% empty %}
-        <p>Nenhum aviso encontrado no momento.</p>
-    {% endfor %}
+        {% endfor %}
 {% endblock %}
